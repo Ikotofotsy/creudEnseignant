@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Vue</title>
+    <link rel="stylesheet" href="bootstrap.min.css_3.4.0-3.4.1/cdnjs/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
+</head>
+<body>
+    <div id="app" class="container">
+        
+        
+        <h1 class="text-primary bg-primary text-center">MonApp</h1>
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Noms</th>
+                    <th>Nombre Heure</th>
+                    <th>Taux Horaire</th>
+                    <th>Salaire</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="enseignant in enseignants">
+                    <th v-text="enseignant.numEns"></th>
+                    <th v-text="enseignant.nom"></th>
+                    <th v-text="enseignant.nbH"></th>
+                    <th v-text="enseignant.tauxH"></th>
+                    <th v-text="enseignant.tauxH * enseignant.nbH"></th>
+                    <td><button class="btn-primary" type="button" name="edit" @click="showPrompt(enseignant.numEns,enseignant.nom,enseignant.nbH,enseignant.tauxH)">Modifier</button></td>
+                    <td><button class="btn-danger" type="button" name="delete" @click="deleteEnseignants(enseignant.numEns)">Supprimer</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            
+            <div class="form-group col-md-6">
+                <!-- <div>
+                    <label class="control-label" for="numEns">N°:</label>
+                    <input class="form-control col-sm" type="text" id="numEns" name="numEns" v-model="num" required>
+                </div> -->
+                <div>
+                    <label class="control-label" for="nom">Nom:</label>
+                    <input class="form-control" type="text" id="nom" name="nom" v-model="nom" required>
+                </div>
+                <div>
+                    <label class="control-label" for="nbH">Nombre Heure:</label>
+                    <input class="form-control" type="number" id="nbH" name="nbH" v-model="nbH" required>
+                </div>
+                <div>
+                    <label class="control-label" for="tauxH">Taux Horaire:</label>
+                    <input class="form-control" type="number" id="tauxH" name="tauxH" v-model="tauxH" required>
+                </div>
+                <div v-if="modife">
+                    <button class="btn-info" @click="editEnseignants" >Enregitrer</button>
+                </div>
+                <div v-if="!modife">
+                    <button class="btn-info" @click="createEnseignants" >Ajouter</button>
+                </div>
+                </div>
+                
+            <div class="info row col-md-4 bg-info">
+                <p>Salaire minimal: <span>{{salaire_min}}</span></p>
+                <p>Salaire maximal: <span>{{salaire_max}}</span></p>
+                <p>Salaire total des enseignants: <span>{{salaire_total}}</span></p>
+            </div>
+            
+        </div>
+        <div v-if="message">
+                <p :class="cls" class="text-center">{{message}}</p>
+            </div>
+    </div>
+
+    <script src="vue.min.js_2.6.11/cdnjs/vue.min.js"></script>
+    <script src="axios.min.js_1.4.0/unpkg/axios.min.js"></script>
+    <script src="js/vue.js"></script>
+</body>
+</html>
